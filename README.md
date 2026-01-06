@@ -1,5 +1,5 @@
 # EpsteinFilesSearch
-Code to perform automated search for the Epstein Files.
+Code to perform an automated search for the Epstein Files.
 
 Epstein Files are falling off the top list of Google Searches. 
 Meanwhile, the administration is failing to comply with a public law. 
