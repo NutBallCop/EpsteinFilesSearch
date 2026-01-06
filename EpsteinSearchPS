@@ -37,5 +37,6 @@ while ($true) {
     }
 
     # Wait 1 minute
+    # adjust the seconds from 60 to a multiple thereof if you get timeouts or a 429 result code
     Start-Sleep -Seconds 60
 }
