@@ -1,0 +1,41 @@
+# Search query
+$Query = "Epstein Files"
+$EncodedQuery = [System.Web.HttpUtility]::UrlEncode($Query)
+
+# Google search URL
+$Url = "https://www.google.com/search?q=$EncodedQuery"
+
+# User-Agent header (important or Google returns minimal/blocked content)
+$Headers = @{
+    "User-Agent" = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
+}
+
+while ($true) {
+
+    try {
+        Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')] Running search..."
+
+        # Perform web request
+        $Response = Invoke-WebRequest `
+            -Uri $Url `
+            -Headers $Headers `
+            -UseBasicParsing `
+            -TimeoutSec 30
+
+        # Capture raw HTML
+        $SearchResults = $Response.Content
+
+        # Optional: write length to confirm success
+        Write-Host "Retrieved $($SearchResults.Length) characters"
+
+        # OPTIONAL: save snapshot to disk
+        # $SearchResults | Out-File "EpsteinFiles_$(Get-Date -Format 'yyyyMMdd_HHmmss').html"
+
+    }
+    catch {
+        Write-Warning "Request failed: $($_.Exception.Message)"
+    }
+
+    # Wait 1 minute
+    Start-Sleep -Seconds 60
+}
